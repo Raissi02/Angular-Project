@@ -1,1 +1,57 @@
-<p>header works!</p>
+<mat-toolbar color="primary">
+  <div class="header-container">
+    <!-- Logo/Brand -->
+    <div class="brand-section">
+      <mat-icon class="logo-icon">dashboard</mat-icon>
+      <span class="app-title">{{ appName }}</span>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+      <button mat-button routerLink="/dashboard" routerLinkActive="active">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
+      </button>
+      
+      <button mat-button routerLink="/crud" routerLinkActive="active">
+        <mat-icon>list_alt</mat-icon>
+        CRUD
+      </button>
+      
+      <button mat-button *ngIf="isAdmin" routerLink="/admin" routerLinkActive="active">
+        <mat-icon>admin_panel_settings</mat-icon>
+        Admin
+      </button>
+    </nav>
+
+    <!-- User Section -->
+    <div class="user-section" *ngIf="isLoggedIn; else loginButton">
+      <button mat-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>account_circle</mat-icon>
+        {{ currentUser?.username }}
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item disabled>
+          <mat-icon>email</mat-icon>
+          {{ currentUser?.email }}
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>badge</mat-icon>
+          {{ currentUser?.role | titlecase }}
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </mat-menu>
+    </div>
+
+    <ng-template #loginButton>
+      <button mat-button routerLink="/auth/login">
+        <mat-icon>login</mat-icon>
+        Login
+      </button>
+    </ng-template>
+  </div>
+</mat-toolbar>

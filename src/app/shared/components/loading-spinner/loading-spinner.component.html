@@ -1,1 +1,7 @@
-<p>loading-spinner works!</p>
+<div class="loading-overlay" *ngIf="loading">
+  <div class="spinner-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p class="loading-text" *ngIf="message">{{ message }}</p>
+    <p class="loading-text" *ngIf="!message">Loading...</p>
+  </div>
+</div>

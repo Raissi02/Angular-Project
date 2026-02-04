@@ -1,1 +1,57 @@
-<p>footer works!</p>
+<footer class="footer">
+  <div class="footer-content">
+    <!-- Left Section -->
+    <div class="footer-section">
+      <h3 class="footer-title">{{ appName }}</h3>
+      <p class="footer-description">
+        Angular Frontend Application with .NET API Integration
+      </p>
+      <p class="footer-copyright">
+        © {{ currentYear }} Educational Project. All rights reserved.
+      </p>
+    </div>
+
+    <!-- Middle Section - Quick Links -->
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a routerLink="/dashboard">Dashboard</a></li>
+        <li><a routerLink="/crud">CRUD Operations</a></li>
+        <li><a routerLink="/admin" *ngIf="isAdmin">Admin Panel</a></li>
+        <li><a routerLink="/auth/login">Login</a></li>
+      </ul>
+    </div>
+
+    <!-- Right Section - Project Info -->
+    <div class="footer-section">
+      <h4>Project Info</h4>
+      <div class="project-info">
+        <div class="info-item">
+          <mat-icon class="info-icon">code</mat-icon>
+          <span>Angular {{ angularVersion }}</span>
+        </div>
+        <div class="info-item">
+          <mat-icon class="info-icon">api</mat-icon>
+          <span>.NET REST API</span>
+        </div>
+        <div class="info-item">
+          <mat-icon class="info-icon">storage</mat-icon>
+          <span>OLTP & Data Warehouse</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="footer-bottom">
+    <div class="version-info">
+      <span>v{{ appVersion }}</span>
+      <span class="separator">•</span>
+      <span>Build: {{ buildDate | date:'mediumDate' }}</span>
+    </div>
+    <div class="status-indicator">
+      <mat-icon class="status-icon" [class.connected]="apiConnected">circle</mat-icon>
+      <span>{{ apiConnected ? 'API Connected' : 'API Disconnected' }}</span>
+    </div>
+  </div>
+</footer>
