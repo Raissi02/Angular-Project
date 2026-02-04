@@ -1,0 +1,65 @@
+<div class="auth-container">
+  <div class="auth-wrapper">
+    <!-- Left Side: Brand/Info -->
+    <div class="auth-sidebar">
+      <div class="brand-section">
+        <mat-icon class="logo-icon">dashboard</mat-icon>
+        <h1 class="app-title">{{ appName }}</h1>
+        <p class="app-tagline">Modern Web Application with Angular & .NET</p>
+      </div>
+
+      <div class="features-list">
+        <div class="feature-item">
+          <mat-icon class="feature-icon">check_circle</mat-icon>
+          <div>
+            <h3>Secure Authentication</h3>
+            <p>JWT-based secure login with role-based access</p>
+          </div>
+        </div>
+        
+        <div class="feature-item">
+          <mat-icon class="feature-icon">check_circle</mat-icon>
+          <div>
+            <h3>Data Management</h3>
+            <p>Complete CRUD operations with relational data</p>
+          </div>
+        </div>
+        
+        <div class="feature-item">
+          <mat-icon class="feature-icon">check_circle</mat-icon>
+          <div>
+            <h3>Analytics Dashboard</h3>
+            <p>Interactive charts and data visualization</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-stack">
+        <div class="tech-item">
+          <span class="tech-icon angular">A</span>
+          <span>Angular 15+</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-icon material">M</span>
+          <span>Material Design</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-icon dotnet">.NET</span>
+          <span>.NET 6+ API</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side: Form Container -->
+    <div class="auth-content">
+      <div class="form-container">
+        <router-outlet></router-outlet>
+        
+        <div class="auth-footer">
+          <p class="version">v{{ appVersion }} • Build {{ buildDate | date:'mediumDate' }}</p>
+          <p class="copyright">© {{ currentYear }} Educational Project</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

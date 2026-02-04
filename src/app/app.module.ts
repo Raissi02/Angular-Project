@@ -22,7 +22,7 @@ import { environment } from 'src/environments/environment';
     HttpClientModule,
     CoreModule,
     SharedModule,
-    MatCardModule,
+        MatCardModule,
     MatIconModule,
     MatButtonModule
   ],

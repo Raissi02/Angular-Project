@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   isAuthenticated = false;
   currentUser: any = null;
   apiResponse: any = null;
+  showTestNav = true;
 
   constructor(
     private auth: AuthService,

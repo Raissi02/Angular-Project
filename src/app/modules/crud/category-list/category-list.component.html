@@ -1,0 +1,154 @@
+<div class="category-list-container">
+  <!-- Header -->
+  <div class="list-header">
+    <div class="header-content">
+      <h1>
+        <mat-icon class="header-icon">category</mat-icon>
+        Category Management
+      </h1>
+      <p>Organize products into categories for better management</p>
+    </div>
+    
+    <div class="header-actions">
+      <button mat-raised-button color="primary" (click)="openCreateDialog()">
+        <mat-icon>add</mat-icon>
+        Add Category
+      </button>
+      
+      <button mat-stroked-button routerLink="/crud/products">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Products
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-section">
+    <mat-card>
+      <div class="stats-content">
+        <div class="stat-item">
+          <mat-icon class="stat-icon" color="primary">category</mat-icon>
+          <div class="stat-info">
+            <h3>Total Categories</h3>
+            <p class="stat-value">{{ categories.length }}</p>
+          </div>
+        </div>
+        
+        <div class="stat-item">
+          <mat-icon class="stat-icon" color="accent">check_circle</mat-icon>
+          <div class="stat-info">
+            <h3>Active</h3>
+            <p class="stat-value">{{ activeCategoriesCount }}</p>
+          </div>
+        </div>
+        
+        <div class="stat-item">
+          <mat-icon class="stat-icon" color="primary">inventory_2</mat-icon>
+          <div class="stat-info">
+            <h3>Total Products</h3>
+            <p class="stat-value">{{ totalProductsCount }}</p>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Categories Grid -->
+  <div class="categories-grid">
+    <!-- Loading State -->
+    <div class="loading-state" *ngIf="isLoading">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Loading categories...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!isLoading && categories.length === 0">
+      <mat-icon class="empty-icon">category</mat-icon>
+      <h3>No Categories Found</h3>
+      <p>Get started by creating your first category</p>
+      <button mat-raised-button color="primary" (click)="openCreateDialog()">
+        <mat-icon>add</mat-icon>
+        Add Category
+      </button>
+    </div>
+
+    <!-- Categories Cards -->
+    <div class="grid-container" *ngIf="!isLoading && categories.length > 0">
+      <mat-card *ngFor="let category of categories" 
+                [class.inactive]="!category.isActive"
+                class="category-card">
+        
+        <!-- Card Header -->
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon class="category-icon" [color]="category.isActive ? 'primary' : 'warn'">
+              label
+            </mat-icon>
+            {{ category.name }}
+            <span class="status-badge" [class.active]="category.isActive">
+              {{ category.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{ category.description }}
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <!-- Card Content -->
+        <mat-card-content>
+          <div class="category-stats">
+            <div class="stat">
+              <mat-icon>inventory_2</mat-icon>
+              <span>{{ category.productCount || 0 }} Products</span>
+            </div>
+            <div class="stat">
+              <mat-icon>calendar_today</mat-icon>
+              <span>Created {{ category.createdAt | date:'mediumDate' }}</span>
+            </div>
+          </div>
+
+          <!-- Products Preview -->
+          <div class="products-preview" *ngIf="category.productCount && category.productCount > 0">
+            <h4>Sample Products:</h4>
+            <div class="product-chips">
+              <mat-chip *ngFor="let product of getCategoryProducts(category.id)" 
+                       [routerLink]="['/crud/products', product.id]">
+                {{ product.name }}
+              </mat-chip>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <!-- Card Actions -->
+        <mat-card-actions align="end">
+          <button mat-button (click)="viewCategoryProducts(category.id)" 
+                  [disabled]="!category.productCount">
+            <mat-icon>visibility</mat-icon>
+            View Products
+          </button>
+          
+          <button mat-icon-button [matMenuTriggerFor]="categoryMenu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #categoryMenu="matMenu">
+            <button mat-menu-item (click)="openEditDialog(category)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="toggleCategoryStatus(category)">
+              <mat-icon>{{ category.isActive ? 'toggle_off' : 'toggle_on' }}</mat-icon>
+              <span>{{ category.isActive ? 'Deactivate' : 'Activate' }}</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="deleteCategory(category.id)" 
+                    [disabled]="category.productCount && category.productCount > 0"
+                    class="delete-item">
+              <mat-icon color="warn">delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -11,13 +11,15 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     LoadingSpinnerComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    TruncatePipe
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     HeaderComponent,
     FooterComponent,
     LoadingSpinnerComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    TruncatePipe
   ]
 })
 export class SharedModule { }

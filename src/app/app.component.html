@@ -93,8 +93,46 @@
 
 <ng-template #normalLayout>
   <app-header></app-header>
-  <main class="main-content">
-    <router-outlet></router-outlet>
-  </main>
-  <app-footer></app-footer>
+
+<main class="main-content">
+  <!-- Test Navigation for Development -->
+  <div class="dev-nav" *ngIf="showTestNav">
+    <mat-card class="dev-nav-card">
+      <mat-card-header>
+        <mat-card-title>🚀 Project Navigation</mat-card-title>
+        <mat-card-subtitle>Development Testing</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="nav-buttons">
+          <button mat-raised-button color="primary" routerLink="/crud/products">
+            <mat-icon>inventory</mat-icon>
+            CRUD Module
+          </button>
+          
+          <button mat-raised-button color="accent" routerLink="/dashboard">
+            <mat-icon>dashboard</mat-icon>
+            Dashboard
+          </button>
+          
+          <button mat-raised-button color="warn" routerLink="/admin">
+            <mat-icon>admin_panel_settings</mat-icon>
+            Admin Panel
+          </button>
+          
+          <button mat-stroked-button routerLink="/auth/login">
+            <mat-icon>login</mat-icon>
+            Auth Module
+          </button>
+        </div>
+        
+        <p class="nav-hint">Use the navigation above to test different modules. The CRUD module is the main requirement.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <router-outlet></router-outlet>
+</main>
+
+<app-footer></app-footer>
 </ng-template>
