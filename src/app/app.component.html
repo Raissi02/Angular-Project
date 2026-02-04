@@ -1,53 +1,93 @@
-<div class="landing-container" *ngIf="showLanding; else normalLayout">
-  <div class="landing-content">
-    <h1>🎯 Angular Project Setup Complete!</h1>
-    <p>Phase 1: Project Setup & Architecture ✅</p>
+<div class="test-container" *ngIf="showTestPage; else normalLayout">
+  <h1>🔧 Phase 2: Core Infrastructure Test</h1>
+  
+  <div class="test-section">
+    <h2>Authentication Service Test</h2>
     
-    <div class="features">
-      <mat-card>
-        <mat-card-header>
-          <mat-icon mat-card-avatar>check_circle</mat-icon>
-          <mat-card-title>Modular Structure</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Core, Shared, and Feature modules created</p>
-        </mat-card-content>
-      </mat-card>
+    <div class="auth-buttons">
+      <button mat-raised-button color="primary" (click)="mockAdminLogin()">
+        <mat-icon>admin_panel_settings</mat-icon>
+        Login as Admin
+      </button>
       
-      <mat-card>
-        <mat-card-header>
-          <mat-icon mat-card-avatar>check_circle</mat-icon>
-          <mat-card-title>Material Design</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Angular Material components integrated</p>
-        </mat-card-content>
-      </mat-card>
+      <button mat-raised-button color="accent" (click)="mockUserLogin()">
+        <mat-icon>person</mat-icon>
+        Login as User
+      </button>
       
+      <button mat-raised-button color="warn" (click)="logout()" [disabled]="!isAuthenticated">
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+    </div>
+    
+    <div class="auth-status">
       <mat-card>
         <mat-card-header>
-          <mat-icon mat-card-avatar>check_circle</mat-icon>
-          <mat-card-title>Routing Ready</mat-card-title>
+          <mat-card-title>Authentication Status</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <p>Lazy-loaded routes configured</p>
+          <p>Is Authenticated: <strong>{{ isAuthenticated ? '✅ Yes' : '❌ No' }}</strong></p>
+          <p>User Role: <strong>{{ currentUser?.role || 'None' }}</strong></p>
+          <p>Username: <strong>{{ currentUser?.username || 'None' }}</strong></p>
+          <p>Email: <strong>{{ currentUser?.email || 'None' }}</strong></p>
         </mat-card-content>
       </mat-card>
     </div>
+  </div>
+  
+  <div class="test-section">
+    <h2>API Service Test</h2>
     
-    <div class="next-steps">
-      <h2>Next Steps:</h2>
-      <ol>
-        <li>Implement Authentication (Phase 2)</li>
-        <li>Create API Service</li>
-        <li>Build CRUD Module</li>
-        <li>Add Dashboard Charts</li>
-      </ol>
+    <div class="api-buttons">
+      <button mat-raised-button (click)="testGetRequest()" [disabled]="!isAuthenticated">
+        <mat-icon>cloud_download</mat-icon>
+        Test GET Request
+      </button>
+      
+      <button mat-raised-button (click)="testPostRequest()" [disabled]="!isAuthenticated">
+        <mat-icon>cloud_upload</mat-icon>
+        Test POST Request
+      </button>
+      
+      <button mat-raised-button color="warn" (click)="testErrorRequest()">
+        <mat-icon>error</mat-icon>
+        Test Error Response
+      </button>
     </div>
     
-    <button mat-raised-button color="primary" (click)="continueToApp()">
-      Continue to Application
-    </button>
+    <div class="api-results">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>API Response</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <pre>{{ apiResponse | json }}</pre>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  
+  <div class="navigation-section">
+    <h2>Ready to Continue?</h2>
+    <p>All core infrastructure is now set up. You can:</p>
+    
+    <div class="nav-buttons">
+      <button mat-raised-button color="primary" (click)="continueToApp()">
+        <mat-icon>dashboard</mat-icon>
+        Go to Dashboard
+      </button>
+      
+      <button mat-stroked-button routerLink="/auth/login">
+        <mat-icon>login</mat-icon>
+        Test Login Page
+      </button>
+      
+      <button mat-stroked-button routerLink="/admin">
+        <mat-icon>admin_panel_settings</mat-icon>
+        Test Admin Guard
+      </button>
+    </div>
   </div>
 </div>
 

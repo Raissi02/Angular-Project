@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -7,35 +9,41 @@ import { environment } from 'src/environments/environment';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   appName = environment.appName;
   isLoggedIn = false;
   isAdmin = false;
   currentUser: any = null;
+  
+  private authSubscription?: Subscription;
+  private userSubscription?: Subscription;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    // For now, set mock data. We'll implement real auth in Phase 2
-    this.mockUserData();
+    // Subscribe to authentication state
+    this.authSubscription = this.authService.isAuthenticated$
+      .subscribe(isAuthenticated => {
+        this.isLoggedIn = isAuthenticated;
+      });
+
+    // Subscribe to user changes
+    this.userSubscription = this.authService.currentUser$
+      .subscribe(user => {
+        this.currentUser = user;
+        this.isAdmin = this.authService.isAdmin();
+      });
   }
 
-  private mockUserData(): void {
-    // Mock data for testing UI
-    this.isLoggedIn = true;
-    this.isAdmin = true;
-    this.currentUser = {
-      username: 'john.doe',
-      email: 'john@example.com',
-      role: 'admin'
-    };
+  ngOnDestroy(): void {
+    this.authSubscription?.unsubscribe();
+    this.userSubscription?.unsubscribe();
   }
 
   logout(): void {
-    // Will implement real logout in Phase 2
-    this.isLoggedIn = false;
-    this.isAdmin = false;
-    this.currentUser = null;
-    this.router.navigate(['/auth/login']);
+    this.authService.logout();
   }
 }
