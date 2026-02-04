@@ -65,3 +65,48 @@
     display: none;
   }
 }
+
+// Active route highlighting
+.active {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 2px;
+  }
+}
+
+// User menu improvements
+.mat-menu-panel {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  min-width: 200px !important;
+  
+  .mat-menu-content {
+    padding: 8px 0;
+    
+    .mat-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: 48px;
+      line-height: 48px;
+      border-radius: 0;
+      
+      &:hover {
+        background-color: #f5f5f5;
+      }
+      
+      mat-icon {
+        margin-right: 0;
+        color: #666;
+      }
+    }
+  }
+}

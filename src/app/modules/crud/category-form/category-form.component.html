@@ -1,1 +1,80 @@
-<p>category-form works!</p>
+<h2 mat-dialog-title>
+  <mat-icon>{{ data.mode === 'create' ? 'add' : 'edit' }}</mat-icon>
+  {{ data.mode === 'create' ? 'Add New Category' : 'Edit Category' }}
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="category-form">
+    
+    <div class="form-section">
+      <!-- Category Name -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Category Name</mat-label>
+        <mat-icon matPrefix>label</mat-icon>
+        <input matInput formControlName="name" placeholder="Enter category name">
+        
+        <mat-error *ngIf="categoryForm.get('name')?.hasError('required')">
+          Category name is required
+        </mat-error>
+        <mat-error *ngIf="categoryForm.get('name')?.hasError('minlength')">
+          Category name must be at least 2 characters
+        </mat-error>
+        <mat-error *ngIf="categoryForm.get('name')?.hasError('maxlength')">
+          Category name must be less than 50 characters
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Description -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <mat-icon matPrefix>description</mat-icon>
+        <textarea matInput formControlName="description" rows="3" 
+                  placeholder="Enter category description"></textarea>
+        
+        <mat-error *ngIf="categoryForm.get('description')?.hasError('required')">
+          Description is required
+        </mat-error>
+        <mat-error *ngIf="categoryForm.get('description')?.hasError('minlength')">
+          Description must be at least 10 characters
+        </mat-error>
+        <mat-error *ngIf="categoryForm.get('description')?.hasError('maxlength')">
+          Description must be less than 200 characters
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Tips Section -->
+    <mat-card class="tips-card" *ngIf="data.mode === 'create'">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>lightbulb</mat-icon>
+        <mat-card-title>Tips for Creating Categories</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ul>
+          <li>Use clear, descriptive names that users will understand</li>
+          <li>Keep descriptions concise but informative</li>
+          <li>Consider how categories will be used to organize products</li>
+          <li>You can create sub-categories later for better organization</li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  
+  <button mat-raised-button color="primary" 
+          (click)="onSubmit()" 
+          [disabled]="categoryForm.invalid || isLoading"
+          class="submit-button">
+    <span *ngIf="!isLoading">
+      <mat-icon>{{ data.mode === 'create' ? 'add' : 'save' }}</mat-icon>
+      {{ data.mode === 'create' ? 'Create Category' : 'Update Category' }}
+    </span>
+    <span *ngIf="isLoading">
+      <mat-spinner diameter="20" class="button-spinner"></mat-spinner>
+      {{ data.mode === 'create' ? 'Creating...' : 'Updating...' }}
+    </span>
+  </button>
+</mat-dialog-actions>

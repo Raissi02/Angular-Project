@@ -64,3 +64,154 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
   }
 }
+
+// Table improvements
+.mat-table {
+  border-radius: 8px;
+  overflow: hidden;
+  
+  th {
+    font-weight: 600 !important;
+    color: #333 !important;
+  }
+  
+  td {
+    border-bottom-color: #f0f0f0 !important;
+  }
+  
+  tr:hover {
+    background-color: #f9f9f9 !important;
+  }
+}
+
+// Card improvements
+mat-card {
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  transition: box-shadow 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+// Button improvements
+button {
+  border-radius: 8px !important;
+  
+  &.mat-raised-button {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25) !important;
+    }
+    
+    &:active {
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+    }
+  }
+}
+
+// Form field improvements
+.mat-form-field-appearance-outline {
+  .mat-form-field-outline {
+    background-color: white;
+    border-radius: 8px;
+  }
+  
+  &.mat-focused {
+    .mat-form-field-outline-thick {
+      color: #3f51b5;
+    }
+  }
+}
+
+// Chip improvements
+.mat-chip {
+  border-radius: 16px !important;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Dialog improvements
+.mat-dialog-container {
+  border-radius: 16px !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+// Paginator improvements
+.mat-paginator {
+  border-radius: 0 0 8px 8px;
+  background-color: #fafafa;
+}
+
+// Loading spinner improvements
+mat-spinner {
+  circle {
+    stroke: #3f51b5 !important;
+  }
+}
+
+// Utility classes
+.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Color utilities
+.bg-primary-light {
+  background-color: #e3f2fd !important;
+}
+
+.bg-success-light {
+  background-color: #e8f5e9 !important;
+}
+
+.bg-warning-light {
+  background-color: #fff3e0 !important;
+}
+
+.bg-error-light {
+  background-color: #ffebee !important;
+}
+
+// Shadow utilities
+.shadow-sm {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
